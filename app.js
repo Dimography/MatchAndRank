@@ -9,9 +9,8 @@ const bot = new TelegramBot({
 });
 
 bot.onEvent(async context => {
-  await context.sendText('Hello World');
+  await context.sendText('Привет! Я предскажу твое карьерное будущее. Введи VK id');
 });
-
 
 const server = createServer(bot, { verifyToken: process.env.TELEGRAM_TOKEN });
 
