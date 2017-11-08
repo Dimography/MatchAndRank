@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { TelegramBot } = require('bottender');
 const { createServer } = require('bottender/express');
+const getTutor = require('/model/model_wrapper.js')
 
 const url = process.env.WEBHOOK_URL;
 
