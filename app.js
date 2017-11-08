@@ -2,10 +2,10 @@ require('dotenv').config();
 const { TelegramBot } = require('bottender');
 const { createServer } = require('bottender/express');
 
-const url = '__FILL_URL_HERE__';
+const url = process.env.WEBHOOK_URL;
 
 const bot = new TelegramBot({
-  accessToken: '__FILL_YOUR_TOKEN_HERE__',
+  accessToken: process.env.TELEGRAM_TOKEN
 });
 
 bot.onEvent(async context => {
@@ -13,8 +13,8 @@ bot.onEvent(async context => {
 });
 
 
-const server = createServer(bot, { verifyToken: process.env.VERIFY_TOKEN });
+const server = createServer(bot, { verifyToken: process.env.TELEGRAM_TOKEN });
 
-server.listen(3789, () => {
+server.listen(5050, () => {
     console.log('server is running');
 });
