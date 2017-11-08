@@ -39,13 +39,9 @@ const get_tutors = (id, done) => {
             done(err, { areas: [] });
         }
     );
-<<<<<<< HEAD
 };
 
 module.exports = {
     get_areas: get_areas,
     get_tutors: get_tutors
 }
-=======
-};
->>>>>>> 819b6000f6e1faf46bac0ece34ad50dc20fbf15a
