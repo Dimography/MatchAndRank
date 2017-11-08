@@ -16,5 +16,6 @@ bot.onEvent(async context => {
 const server = createServer(bot, { verifyToken: process.env.TELEGRAM_TOKEN });
 
 server.listen(5050, () => {
+    bot.connector.client.setWebhook(url);
     console.log('server is running');
 });
