@@ -10,7 +10,7 @@ const get_areas = (id, done) => {
     const vk_id = id || '123456';
 
     const process = child_process.exec(
-        'python ./model.py -id ' + vk_id,
+        'python3 ./model.py -id ' + vk_id,
         (err, stdout, stderr) => {
             if (err) console.error('Exec process error:', err);
 
