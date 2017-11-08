@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { TelegramBot } = require('bottender');
 const { createServer } = require('bottender/express');
-const getTutor = require('/model/model_wrapper.js')
+const getTutor = require('./model');
 
 const url = process.env.WEBHOOK_URL;
 
@@ -10,6 +10,7 @@ const bot = new TelegramBot({
 });
 
 bot.onEvent(async context => {
+  getTutor.get_areas(111, (err, prediction) => console.log(prediction.areas));
   await context.sendText('Привет! Я предскажу твое карьерное будущее. Введи VK id');
 });
 
