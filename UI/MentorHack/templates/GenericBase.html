@@ -37,7 +37,7 @@
             display: grid;
             min-height: 100vh;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-            grid-template-rows: 100px 50px 1fr 20px;
+            grid-template-rows: 160px 50px 1fr 20px;
             margin: 0 0;
         }
 
@@ -69,7 +69,7 @@
         div.main {
             grid-row: 3;
             grid-column: 2 / 6;
-            padding: 5px 10px;
+            padding: 1% 2%;
         }
 
         div.footer {
@@ -86,18 +86,20 @@
             text-align: center;
             border: solid black;
             border-width: 1px 0 1px 0;
+            font-size: 1.2vw;
         }
 
         .headerOuter {
+            margin-top: 20px;
             text-align: center;
-            display: table;
             height: 100%;
             width: 100%;
         }
 
-        .headerInner {
-            display: table-cell;
-            vertical-align: middle;
+        .footerOuter {
+            text-align: center;
+            height: 100%;
+            width: 100%;
         }
 
         #title {
@@ -116,9 +118,7 @@
 
 <div class="header">
     <div class="headerOuter">
-        <div id="headerInner">
-            <a href="/" id="title">Match&Rank</a>
-        </div>
+        <a href="/" id="title">Match&Rank</a>
     </div>
     {% block header %}
     {% endblock %}
@@ -147,8 +147,8 @@
 </div>
 
 <div class="footer">
-    <div class="headerOuter">
-        <div class="headerInner">Команда "Match&Rank". Хакатон MentorHack 2018.</div>
+    <div class="footerOuter">
+        Команда "Match&Rank". Хакатон MentorHack 2018.
     </div>
     {% block footer %}
     {% endblock %}

@@ -30,6 +30,8 @@ def findMentee(request):
 
 
 def ajax_FindMentor(request):
+    id = request.user.get_username()
+
     data = {
         'Mentor': [
             123,
@@ -42,6 +44,8 @@ def ajax_FindMentor(request):
 
 
 def ajax_FindMentee(request):
+    id = request.user.get_username()
+
     data = {
         'Mentee': [
             123,
@@ -55,6 +59,8 @@ def ajax_FindMentee(request):
 
 # Sending data to web-page
 def ajax_GetUserData(request):
+    id = request.user.get_username()
+
     data = {
         'fields': {
             'must': [
