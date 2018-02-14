@@ -37,10 +37,6 @@ class database:
         gen_json(data, scoring)
         return(data)
 
-    def get_all_data(self, id):
-        datalist = {"personal":get_user_by_id(id)}#, "scoring_history":get_scoring_history(id)}
-        return gen_json_persdata(datalist)
-
 if __name__ == '__main__':
     db = database(DB_PATH)
     with open('user_info.json') as info:
