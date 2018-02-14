@@ -1,14 +1,15 @@
 {
     "id": 148809,
     "name": "ihatethislife",
+    "surname": "abc",
     "age": 322,
     "department": "HELL",
     "position": "CEO",
     "is_mentor": 1,
     "is_mentee": 0,
     "want_mentee": 1,
-    "catalogues": "anus",
     "overal_exp": 10,
-    "cur_comp_exp": 8,
-    "max_mentee": 2
+    "current_company_exp": 8,
+    "max_mentee": 2,
+    "catalogues": "anus"
 }
