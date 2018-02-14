@@ -1,0 +1,41 @@
+{% extends "GenericBase.html" %}
+
+{% block javascript %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            $.ajax({
+                url: '/MatchAndRank/Ajax/FindMentor/',
+                data: {
+                    username: "{{ user.get_username }}"
+                },
+                dataType: 'json',
+                success: function (result) {
+                    var json = JSON.stringify(result);
+
+                    $("#Results").append("<p>" + json + "</p>");
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block css %}
+    <style>
+        #findMentor {
+            filter: invert(100%);
+            border: solid white;
+        }
+    </style>
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+    Тут будет поиск ментора.
+
+    <div id="Form"></div>
+
+    <div id="Results"></div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
