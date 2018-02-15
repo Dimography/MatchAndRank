@@ -12,12 +12,14 @@ def get_mentors(mentee_id):
     mentor_stat = {}
     for mentor in data.keys():
         mentor_stat.update({mentor: db.generate_out_json(mentor, data[mentor])})
+        if mentor_stat[mentor] == 'mentor_exists_error':
+            return False
     print(mentor_stat)
     return mentor_stat
 
 def choose_mentor(mentor_id, mentee_id):
     db = database("./database/state.db")
     db.set_mentorship_relation(mentor_id, mentee_id)
-    
+
 if __name__ == '__main__':
         main()
