@@ -37,7 +37,7 @@ class database:
     def generate_out_json(self, user_id, percentage):
         self.cursor.execute("SELECT mentorid FROM state WHERE id=\"{}\"".format(user_id))
         mentee = dict(self.cursor.fetchone())
-        if mentee["mentorid"] !='':
+        if mentee["mentorid"] =='':
             self.cursor.execute("SELECT name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes FROM state WHERE id=\"{}\"".format(user_id))
             data = dict(self.cursor.fetchone())
             data.update({"percentage":round(percentage)})
@@ -63,4 +63,7 @@ if __name__ == '__main__':
             # if(type(i[key]) == str):
                 # i[key] = i[key].replace('"', '')
         # db.register_user(i)
-    db.generate_out_json("0dc1f1f98869ea423b313f499c159c5b04d889ac", 97)
+
+        # 13c630b184f506435e025dd2eccc94975a8028de
+        # 66b122ab7214ebfa2e82da9d8dcab04af0d6c841
+    db.generate_out_json("13c630b184f506435e025dd2eccc94975a8028de", 97)
