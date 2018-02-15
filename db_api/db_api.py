@@ -16,8 +16,8 @@ class database:
         self.cursor.execute('INSERT INTO state ({}) VALUES (\"{}\")'.format(*query))
         self.connection.commit()
 
-    def get_user_by_id(self, usr_id):
-        self.cursor.execute("SELECT * from state WHERE id = \'{}\'".format(usr_id))
+    def get_user_by_id(self, user_id):
+        self.cursor.execute("SELECT * from state WHERE id = \'{}\'".format(user_id))
         data = dict(self.cursor.fetchone())
         # gen_json(data, "state")
         return(data)
@@ -28,11 +28,14 @@ class database:
         # gen_json(data, table)
         return(data)
 
-    def get_scoring_history(self, id):
-        self.cursor.execute("SELECT * from scoring where id = ?", id)
+    def get_scoring_history(self, user_id):
+        self.cursor.execute("SELECT * from scoring where id = ?", user_id)
         data = [dict(person) for person in self.cursor.fetchall()]
         # gen_json(data, scoring)
         return(data)
+
+    def generate_out_json(self, user_id, percentage):
+        self.cursor.execute("SELECT (name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes) FROM state WHERE id = ?", user_id)
 
 if __name__ == '__main__':
     db = database(DB_PATH)
