@@ -16,12 +16,12 @@ def calculate_mentor_possibility(mentee, mentor):
     if (mentee['id'] == mentor['id']):
         return 0
 
-    if mentee['skills'] == '':
+    if mentee['codinglanguages'] == '':
         lang_mathing = 2
     else:
         lang_mathing = 0
-        tee_langs = mentee['skills'].split(', ')
-        tor_langs = mentor['skills']
+        tee_langs = mentee['codinglanguages'].split(', ')
+        tor_langs = mentor['codinglanguages']
         for i in tee_langs:
             if i in tor_langs:
                 lang_mathing += 1
