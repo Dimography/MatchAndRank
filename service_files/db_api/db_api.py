@@ -44,8 +44,8 @@ class database:
         return(data)
 
     def set_mentorship_relation(self, mentor_id, mentee_id):
-        self.cursor.execute("UPDATE state SET menteeid=\"{}\" WHERE mentorid=\"{}\"".format(mentee_id, mentor_id))
-        self.cursor.execute("UPDATE state SET mentorid=\"{}\" WHERE menteeid=\"{}\"".format(mentor_id, mentee_id))
+        self.cursor.execute("UPDATE state SET menteeid=\"{}\" WHERE id=\"{}\"".format(mentee_id, mentor_id))
+        self.cursor.execute("UPDATE state SET mentorid=\"{}\" WHERE id=\"{}\"".format(mentor_id, mentee_id))
         self.connection.commit()
 
 
@@ -62,4 +62,3 @@ if __name__ == '__main__':
 
         # 13c630b184f506435e025dd2eccc94975a8028de
         # 66b122ab7214ebfa2e82da9d8dcab04af0d6c841
-    
