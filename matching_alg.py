@@ -43,14 +43,18 @@ def find_mentors(mentee, mentors, n):
     for i in mentors:
         matches.append(calculate_mentor_possibility(mentee, i))
     maximum = max(matches)
-    maximum = max(10, maximum)
+    maximum = max(1.5, maximum)
+    minimum =s -8
+    matches = [(i - minimum)/(maximum - minimum) for i in matches]
+    maximum = max(matches)
     minimum = min(matches)
     matches = [(i - minimum)/(maximum - minimum) for i in matches]
     matches = np.asarray(matches)
-    if (n < len(matches)):
-        matches = matches.argsort()[-n:][::-1]
-    else:
-        matches = matches.argsort()[::-1]
-    found = dict()
-    for i in matches:
-        found[mentors[i]['id']] = 
+    result = dict()
+    if (n > len(matches)):
+        n = len(matches)
+    args = matches.argsort()[-n:][::-1]
+    for i in args:
+        result[mentors[i]['id']] = matches[i] * 100
+    # what the hell is wrong with u
+    return result
