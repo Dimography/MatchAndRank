@@ -1,6 +1,6 @@
 import sqlite3
 import json
-DB_PATH = '../database/state.db'
+DB_PATH = 'state.db'
 
 # def gen_json(data, table):
     # for person in data:
