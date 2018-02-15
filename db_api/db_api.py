@@ -3,10 +3,6 @@ import json
 import pickle
 DB_PATH = '../database/state.db'
 
-# def gen_json(data, table):
-    # for person in data:
-        # with open("{}_{}.json".format(str(person['id']), table), "w") as user_json:
-            # json.dump(person, user_json)
 
 class database:
     def __init__(self, db_path):
@@ -40,8 +36,8 @@ class database:
 
 if __name__ == '__main__':
     db = database(DB_PATH)
-    print("aaaaaaaaaaaaaaaa")
-    with open("../alena/new_developers", "rb") as serialized_arr:
+    path = str(input(">Relative filepath: "))
+    with open(path, "rb") as serialized_arr:
         data_list = pickle.load(serialized_arr)
     for i in data_list:
         for key in i.keys():
