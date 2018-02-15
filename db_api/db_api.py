@@ -35,10 +35,17 @@ class database:
         return(data)
 
     def generate_out_json(self, user_id, percentage):
-        self.cursor.execute("SELECT name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes FROM state WHERE id=\"{}\"".format(user_id))
-        data = dict(self.cursor.fetchone())
-        data.update({"percentage":percentage})
-        return(data)
+        self.cursor.execute("SELECT mentorid FROM state WHERE id=\"{}\"".format(user_id))
+        mentee = dict(self.cursor.fetchone())
+        if mentee["mentorid"] !='':
+            self.cursor.execute("SELECT name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes FROM state WHERE id=\"{}\"".format(user_id))
+            data = dict(self.cursor.fetchone())
+            data.update({"percentage":round(percentage)})
+            print(data)
+            return(data)
+        else:
+            print("ERROR, MENTOR ALREADY EXISTS")
+            return('mentor_exists_error')
 
     def set_mentorship_relation(self, mentor_id, mentee_id):
         self.cursor.execute("UPDATE state SET menteeid=\"{}\" WHERE mentorid=\"{}\"".format(mentee_id, mentor_id))
@@ -48,11 +55,12 @@ class database:
 
 if __name__ == '__main__':
     db = database(DB_PATH)
-    path = str(input(">Relative filepath: "))
-    with open(path, "rb") as serialized_arr:
-        data_list = pickle.load(serialized_arr)
-    for i in data_list:
-        for key in i.keys():
-            if(type(i[key]) == str):
-                i[key] = i[key].replace('"', '')
-        db.register_user(i)
+    # path = str(input(">Relative filepath: "))
+    # with open(path, "rb") as serialized_arr:
+        # data_list = pickle.load(serialized_arr)
+    # for i in data_list:
+        # for key in i.keys():
+            # if(type(i[key]) == str):
+                # i[key] = i[key].replace('"', '')
+        # db.register_user(i)
+    db.generate_out_json("0dc1f1f98869ea423b313f499c159c5b04d889ac", 97)
