@@ -2,55 +2,55 @@
 
 {% block javascript %}
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            $.ajax({
-                url: '/MatchAndRank/Ajax/FindMentee/',
-                data: {
-                    username: "{{ user.get_username }}"
-                },
-                dataType: 'json',
-                success: function (result) {
-                    var json = JSON.stringify(result);
-
+{#        document.addEventListener("DOMContentLoaded", function () {#}
+{#            $.ajax({#}
+{#                url: '/MatchAndRank/Ajax/FindMentee/',#}
+{#                data: {#}
+{#                    username: "{{ user.get_username }}"#}
+{#                },#}
+{#                dataType: 'json',#}
+{#                success: function (result) {#}
+{#                    var json = JSON.stringify(result);#}
+{##}
                     {# $("#Results").append("<p>" + json + "</p>"); #}
-                }
-            });
-
-            var menteePageId = 1;
-
-            $("#addMentee").click(function () {
-                var div = $("<div></div>");
-                div.id = menteePageId;
-
-                if (menteePageId % 2 == 1) {
-                    div.addClass("dataBlock Left");
-                } else {
-                    div.addClass("dataBlock Right");
-                }
-
-                div.click(function () {
-                    var noChosen = true;
-
-                    if (document.getElementsByClassName("Chosen").length > 0) {
-                        noChosen = false;
-                    }
-
-                    if (noChosen) {
-                        if (!div.hasClass("Chosen")) {
-                            div.addClass("Chosen");
-                        }
-                    } else {
-                        if (div.hasClass("Chosen")) {
-                            div.removeClass("Chosen");
-                        }
-                    }
-                });
-
-                $("#Results").append(div);
-
-                menteePageId++;
-            });
-        });
+{#                }#}
+{#            });#}
+{##}
+{#            var menteePageId = 1;#}
+{##}
+{#            $("#addMentee").click(function () {#}
+{#                var div = $("<div></div>");#}
+{#                div.id = menteePageId;#}
+{##}
+{#                if (menteePageId % 2 == 1) {#}
+{#                    div.addClass("dataBlock Left");#}
+{#                } else {#}
+{#                    div.addClass("dataBlock Right");#}
+{#                }#}
+{##}
+{#                div.click(function () {#}
+{#                    var noChosen = true;#}
+{##}
+{#                    if (document.getElementsByClassName("Chosen").length > 0) {#}
+{#                        noChosen = false;#}
+{#                    }#}
+{##}
+{#                    if (noChosen) {#}
+{#                        if (!div.hasClass("Chosen")) {#}
+{#                            div.addClass("Chosen");#}
+{#                        }#}
+{#                    } else {#}
+{#                        if (div.hasClass("Chosen")) {#}
+{#                            div.removeClass("Chosen");#}
+{#                        }#}
+{#                    }#}
+{#                });#}
+{##}
+{#                $("#Results").append(div);#}
+{##}
+{#                menteePageId++;#}
+{#            });#}
+{#        });#}
     </script>
 {% endblock %}
 
