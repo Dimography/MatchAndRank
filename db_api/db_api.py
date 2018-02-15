@@ -21,7 +21,7 @@ class database:
 
     def get_user_by_id(self, usr_id):
         self.cursor.execute("SELECT * from state WHERE id = \'{}\'".format(usr_id))
-        data = [dict(self.cursor.fetchone())]
+        data = dict(self.cursor.fetchone())
         # gen_json(data, "state")
         return(data)
 
