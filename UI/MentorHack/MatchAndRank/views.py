@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
+from .db_api import db_api
+from . import match_func
 
 # Main page
 def main(request):
@@ -30,17 +32,14 @@ def findMentee(request):
 
 
 def ajax_FindMentor(request):
-    id = request.user.get_username()
+    db = db_api.database("state.db")
+    mentee_id = request.user.get_username()
+    mentee_data = db.get_user_by_id(mentee_id)
+    potential_mentors = db.get_by_value("state", "department", mentee_data["department"])
+    data = match_func.find_mentors(mentee_data, potential_mentors, 5)
+    print(data)
 
-    data = {
-        'Mentor': [
-            123,
-            456,
-            789,
-        ]
-    }
-
-    return JsonResponse(data)
+    return JsonResponse({"123": 223})
 
 
 def ajax_FindMentee(request):
