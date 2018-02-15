@@ -4,7 +4,7 @@ from db_api import database
 import matching_alg
 
 
-def main(mentee_id):
+def get_mentors(mentee_id):
     db = database("./database/state.db")
     mentee_data = db.get_user_by_id(mentee_id)
     potential_mentors = db.get_by_value("state", "department", mentee_data["department"])
@@ -15,6 +15,9 @@ def main(mentee_id):
     print(mentor_stat)
     return mentor_stat
 
-
+def choose_mentor(mentor_id, mentee_id):
+    db = database("./database/state.db")
+    db.set_mentorship_relation(mentor_id, mentee_id)
+    
 if __name__ == '__main__':
         main()

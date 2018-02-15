@@ -40,6 +40,12 @@ class database:
         data.update({"percentage":percentage})
         return(data)
 
+    def set_mentorship_relation(self, mentor_id, mentee_id):
+        self.cursor.execute("UPDATE state SET menteeid=\"{}\" WHERE mentorid=\"{}\"".format(mentee_id, mentor_id))
+        self.cursor.execute("UPDATE state SET mentorid=\"{}\" WHERE menteeid=\"{}\"".format(mentor_id, mentee_id))
+        self.cursor.commit()
+
+
 if __name__ == '__main__':
     db = database(DB_PATH)
     path = str(input(">Relative filepath: "))
