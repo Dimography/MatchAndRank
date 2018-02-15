@@ -1,0 +1,86 @@
+{% extends "GenericBase.html" %}
+
+{% block javascript %}{% endblock %}
+
+{% block css %}
+    <style>
+        #login {
+            filter: invert(100%);
+            border: solid white;
+        }
+
+        #content {
+            text-align: center;
+        }
+
+        #inputDiv {
+            margin: 0 auto 0 auto;
+        }
+
+        input[type=submit] {
+            width: 100px;
+            background: white;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        .table {
+            display: table;
+            margin: 0 auto 0 auto;
+        }
+
+        .tableRow {
+            display: table-row;
+        }
+
+        .tableCell {
+            display: table-cell;
+        }
+    </style>
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+    <div id="content">
+        {% if form.errors %}
+            Ваши логин и пароль не совпали. Пожалуйста, попробуйте еще раз.
+            <hr noshade size="1px">
+        {% endif %}
+
+        {% if next %}
+            Пожалуйста войдите в свою учетную запись, чтобы просмотреть эту страницу.
+            <hr noshade size="1px">
+        {% endif %}
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <div class="table">
+                <div class="tableRow">
+                    <div class="tableCell">
+                        Логин:&nbsp;&nbsp;
+                    </div>
+                    <div class="tableCell">
+                        {{ form.username }}
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableCell">
+                        Пароль:&nbsp;&nbsp;
+                    </div>
+                    <div class="tableCell">
+                        {{ form.password }}
+                    </div>
+                </div>
+            </div>
+
+            <div id="inputDiv">
+                <input type="submit" value="Войти"/>
+                <input type="hidden" name="next" value="{{ next }}"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "GenericBase.html" %}
+
+{% block javascript %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            $.ajax({
+                url: '/MatchAndRank/Ajax/FindMentor/',
+                data: {
+                    username: "{{ user.get_username }}"
+                },
+                dataType: 'json',
+                success: function (result) {
+                    var json = JSON.stringify(result);
+
+                    {# $("#Results").append("<p>" + json + "</p>"); #}
+                }
+            });
+
+            var mentorPageId = 1;
+
+            $("#addMentor").click(function () {
+                var div = $("<div></div>");
+                div.id = mentorPageId;
+
+                if (mentorPageId % 2 == 1) {
+                    div.addClass("dataBlock Left");
+                } else {
+                    div.addClass("dataBlock Right");
+                }
+
+                div.click(function () {
+                    var noChosen = true;
+
+                    if (document.getElementsByClassName("Chosen").length > 0) {
+                        noChosen = false;
+                    }
+
+                    if (noChosen) {
+                        if (!div.hasClass("Chosen")) {
+                            div.addClass("Chosen");
+                        }
+                    } else {
+                        if (div.hasClass("Chosen")) {
+                            div.removeClass("Chosen");
+                        }
+                    }
+                });
+
+                $("#Results").append(div);
+
+                mentorPageId++;
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block css %}
+    <style>
+        #findMentor {
+            filter: invert(100%);
+            border: solid white;
+        }
+
+        .dataBlock {
+            border: 1px solid black;
+            width: 47%;
+            height: 200px;
+            margin: 1%;
+            display: inline-block;
+            background-color: white;
+        }
+
+        .Left {
+            float: left;
+        }
+
+        .Right {
+            float: right;
+        }
+
+        .Chosen {
+            background-color: green;
+        }
+    </style>
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+    <button id="addMentor" style="height: 30px">Add Mentor</button>
+    <br>
+
+    <div id="Results"></div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

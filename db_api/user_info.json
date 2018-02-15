@@ -1,0 +1,21 @@
+{
+    "id": "c2ccf9a4fcb0387a702af6abea8592c5e37ca7cf",
+    "surname": "surnamec2ccf9a4fcb0387a702af6abea8592c5e37ca7cf",
+    "name": "namec2ccf9a4fcb0387a702af6abea8592c5e37ca7cf",
+    "patronymic": "patronymicc2ccf9a4fcb0387a702af6abea8592c5e37ca7cf",
+    "age": 40,
+    "department": "development",
+    "position": "developer",
+    "ismentor": 0,
+    "ismentee": 0,
+    "wantmentee": 1,
+    "overalexperience": 1,
+    "currentcompanyexperience": 3,
+    "maxmentee": 3,
+    "mentorscore": 0,
+    "currentmenteeid": "",
+    "menteescore": 0,
+    "currentmentorid": "",
+    "skills": "java, c#",
+    "institutes": "Финансовый университет при Правительстве РФ, Московский государственный университет им. М.В. Ломоносова"
+}
