@@ -48,6 +48,9 @@ def find_mentors(mentee, mentors, n):
     matches = [(i - minimum)/(maximum - minimum) for i in matches]
     matches = np.asarray(matches)
     if (n < len(matches)):
-        return matches.argsort()[-n:][::-1]
+        matches = matches.argsort()[-n:][::-1]
     else:
-        return matches.argsort()[::-1]
+        matches = matches.argsort()[::-1]
+    found = dict()
+    for i in matches:
+        found[mentors[i]['id']] = 
