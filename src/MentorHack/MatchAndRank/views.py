@@ -42,7 +42,7 @@ def ajax_FindMentor(request):
 
 def ajax_ChooseMentor(request):
     if (request.GET['mentor']):
-        print("Mentor: ", request.GET['mentor'], "Mentee:", request.user.get_username())
-        # interface.choose_mentor(request.GET['mentor'], request.user.get_username)
+        # print("Mentor: ", request.GET['mentor'], "Mentee:", request.user.get_username())
+        interface.choose_mentor(request.GET['mentor'], request.user.get_username())
 
     return JsonResponse({"Complete": True})
