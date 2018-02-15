@@ -36,6 +36,9 @@ class database:
 
     def generate_out_json(self, user_id, percentage):
         self.cursor.execute("SELECT (name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes) FROM state WHERE id = ?", user_id)
+        data = dict(db.cursor.fetchone())
+        data.update({"percentage":percentage})
+        return(data)
 
 if __name__ == '__main__':
     db = database(DB_PATH)
