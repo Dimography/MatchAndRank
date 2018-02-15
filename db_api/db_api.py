@@ -29,14 +29,14 @@ class database:
         return(data)
 
     def get_scoring_history(self, user_id):
-        self.cursor.execute("SELECT * from scoring where id = ?", user_id)
+        self.cursor.execute("SELECT * from scoring where id=?", user_id)
         data = [dict(person) for person in self.cursor.fetchall()]
         # gen_json(data, scoring)
         return(data)
 
     def generate_out_json(self, user_id, percentage):
-        self.cursor.execute("SELECT (name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes) FROM state WHERE id = ?", user_id)
-        data = dict(db.cursor.fetchone())
+        self.cursor.execute("SELECT name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes FROM state WHERE id=\"{}\"".format(user_id))
+        data = dict(self.cursor.fetchone())
         data.update({"percentage":percentage})
         return(data)
 

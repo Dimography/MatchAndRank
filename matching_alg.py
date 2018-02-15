@@ -44,7 +44,7 @@ def find_mentors(mentee, mentors, n):
         matches.append(calculate_mentor_possibility(mentee, i))
     maximum = max(matches)
     maximum = max(1.5, maximum)
-    minimum =s -8
+    minimum = -8
     matches = [(i - minimum)/(maximum - minimum) for i in matches]
     maximum = max(matches)
     minimum = min(matches)
