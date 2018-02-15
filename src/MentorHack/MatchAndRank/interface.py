@@ -22,5 +22,9 @@ def choose_mentor(mentor_id, mentee_id):
     db = db_api.database("state.db")
     db.set_mentorship_relation(mentor_id, mentee_id)
 
-if __name__ == '__main__':
-        main()
+def get_mentor(mentee_id):
+    db = db_api.database("state.db")
+    mentee = db.get_user_by_id(mentee_id)
+    mentor_id = mentee["mentorid"]
+    db.cursor.execute("SELECT name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes FROM state WHERE id=\"{}\"".format(mentor_id))
+    return(dict(db.cursor.fetchone())
