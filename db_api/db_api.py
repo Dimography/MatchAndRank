@@ -37,20 +37,16 @@ class database:
     def generate_out_json(self, user_id, percentage):
         self.cursor.execute("SELECT mentorid FROM state WHERE id=\"{}\"".format(user_id))
         mentee = dict(self.cursor.fetchone())
-        if mentee["mentorid"] =='':
-            self.cursor.execute("SELECT name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes FROM state WHERE id=\"{}\"".format(user_id))
-            data = dict(self.cursor.fetchone())
-            data.update({"percentage":round(percentage)})
-            print(data)
-            return(data)
-        else:
-            print("ERROR, MENTOR ALREADY EXISTS")
-            return('mentor_exists_error')
+        self.cursor.execute("SELECT name, surname, patronymic, overalexperience, currentcompanyexperience, codinglanguages, age, institutes FROM state WHERE id=\"{}\"".format(user_id))
+        data = dict(self.cursor.fetchone())
+        data.update({"percentage":round(percentage)})
+        print(data)
+        return(data)
 
     def set_mentorship_relation(self, mentor_id, mentee_id):
         self.cursor.execute("UPDATE state SET menteeid=\"{}\" WHERE mentorid=\"{}\"".format(mentee_id, mentor_id))
         self.cursor.execute("UPDATE state SET mentorid=\"{}\" WHERE menteeid=\"{}\"".format(mentor_id, mentee_id))
-        self.cursor.commit()
+        self.connection.commit()
 
 
 if __name__ == '__main__':
@@ -66,4 +62,4 @@ if __name__ == '__main__':
 
         # 13c630b184f506435e025dd2eccc94975a8028de
         # 66b122ab7214ebfa2e82da9d8dcab04af0d6c841
-    db.generate_out_json("13c630b184f506435e025dd2eccc94975a8028de", 97)
+    
