@@ -4,6 +4,10 @@
 
 {% block css %}
     <style>
+        div.main {
+            font-size: 1.25vw;
+        }
+
         #login {
             filter: invert(100%);
             border: solid white;
@@ -18,7 +22,10 @@
         }
 
         input[type=submit] {
-            width: 100px;
+            font-size: 1vw;
+            margin-top: 20px;
+            width: 150px;
+            height: 25px;
             background: white;
             text-align: center;
             border: 1px solid black;
@@ -35,6 +42,10 @@
 
         .tableCell {
             display: table-cell;
+        }
+
+        form {
+            margin: 80px 0 80px 0;
         }
     </style>
 {% endblock %}
@@ -80,6 +91,18 @@
                 <input type="hidden" name="next" value="{{ next }}"/>
             </div>
         </form>
+
+        <div style="text-align: left">
+            Юзеры:<br>
+            c2ccf9a4fcb0387a702af6abea8592c5e37ca7cf<br>
+            8419b42196ac5b832a38017a7d8311b81a758104<br>
+            e5e8dda129ad6b9e50b329695e5bce3abe53d246<br>
+            9aaef1804d970439441dea3ba2d48e96c0aa8e45<br>
+            9fc15df5251ecfde6968449aec1cef25dfc5d9c5<br><br>
+
+            Пароль:<br>
+            qwerty12<br>
+        </div>
     </div>
 {% endblock %}
 

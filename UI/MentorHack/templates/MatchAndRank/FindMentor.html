@@ -10,47 +10,177 @@
                 },
                 dataType: 'json',
                 success: function (result) {
-                    var json = JSON.stringify(result);
+                    res = result;
 
-                    {# $("#Results").append("<p>" + json + "</p>"); #}
-                }
-            });
-
-            var mentorPageId = 1;
-
-            $("#addMentor").click(function () {
-                var div = $("<div></div>");
-                div.id = mentorPageId;
-
-                if (mentorPageId % 2 == 1) {
-                    div.addClass("dataBlock Left");
-                } else {
-                    div.addClass("dataBlock Right");
-                }
-
-                div.click(function () {
-                    var noChosen = true;
-
-                    if (document.getElementsByClassName("Chosen").length > 0) {
-                        noChosen = false;
-                    }
-
-                    if (noChosen) {
-                        if (!div.hasClass("Chosen")) {
-                            div.addClass("Chosen");
+                    if (JSON.stringify(res).indexOf("ERROR, MENTOR ALREADY EXISTS") == -1) {
+                        for (i in res) {
+                            printMentor(res[i], i)
                         }
                     } else {
-                        if (div.hasClass("Chosen")) {
-                            div.removeClass("Chosen");
-                        }
+                        $("#Results").append("У вас уже есть ментор.")
                     }
-                });
 
-                $("#Results").append(div);
-
-                mentorPageId++;
+{#                    addImages();#}
+                }
             });
         });
+
+        var mentorPageId = 1;
+
+        function printMentor(mentor, mentorId) {
+            var div = $("<div></div>");
+            div.attr("id", mentorPageId);
+            div.attr("name", mentorId);
+            div.addClass("dataBlock");
+
+            {#            if (mentorPageId % 2 == 1) {#}
+            {#                div.addClass("dataBlock Left");#}
+            {#            } else {#}
+            {#                div.addClass("dataBlock Right");#}
+            {#            }#}
+
+            div.click(function () {
+                var noChosen = true;
+
+                if (document.getElementsByClassName("Chosen").length > 0) {
+                    noChosen = false;
+                }
+
+                if (noChosen) {
+                    if (!div.hasClass("Chosen")) {
+                        div.addClass("Chosen");
+                    }
+                } else {
+                    if (div.hasClass("Chosen")) {
+                        div.removeClass("Chosen");
+                    }
+                }
+
+                toggleButton();
+            });
+
+            // ----------------------------------------
+
+            div.append(
+                $("<div class=\"Row\"></div>")
+{#                    .append(#}
+{#                        $("<div class=\"Cell\" id=\"Image" + mentorPageId + "\"></div>")#}
+{#                    )#}
+                    .append(
+                        $("<div class=\"Cell PercentageCell\"></div>")
+                            .append("<span class=\"Percentage\">" + mentor['percentage'] + "</span>")
+                            .css("color", "rgb(" + (Math.floor((100 - mentor['percentage']) / 100 * 255)) +
+                                ", " + (Math.floor(mentor['percentage'] / 100 * 255)) + ", 0)")
+                    )
+                    .append(
+                        $("<div class=\"Cell\"></div>")
+                            .append(
+                                $("<div class=\"Table\"></div>")
+                                    .append(
+                                        $("<div class=\"Row\"></div>")
+                                            .append($("<div class=\"Cell LeftCell\">" + "Фамилия:" + "&nbsp;</div>"))
+                                            .append($("<div class=\"Cell\">" + mentor['surname'] + "</div>"))
+                                    )
+                                    .append(
+                                        $("<div class=\"Row\"></div>")
+                                            .append($("<div class=\"Cell LeftCell\">" + "Имя:" + "&nbsp;</div>"))
+                                            .append($("<div class=\"Cell\">" + mentor['name'] + "</div>"))
+                                    )
+                                    .append(
+                                        $("<div class=\"Row\"></div>")
+                                            .append($("<div class=\"Cell LeftCell\">" + "Отчество:" + "&nbsp;</div>"))
+                                            .append($("<div class=\"Cell\">" + mentor['patronymic'] + "</div>"))
+                                    )
+                                    .append(
+                                        $("<div class=\"Row\"></div>")
+                                            .append($("<div class=\"Cell LeftCell\">" + "Возраст:" + "&nbsp;</div>"))
+                                            .append($("<div class=\"Cell\">" + mentor['age'] + "</div>"))
+                                    )
+                                    .append(
+                                        $("<div class=\"Row\"></div>")
+                                            .append($("<div class=\"Cell LeftCell\">" + "Образование:" + "&nbsp;</div>"))
+                                            .append($("<div class=\"Cell\">" + mentor['institutes'] + "</div>"))
+                                    )
+                                    .append(
+                                        $("<div class=\"Row\"></div>")
+                                            .append($("<div class=\"Cell LeftCell\">" + "Опыт работы:" + "&nbsp;</div>"))
+                                            .append($("<div class=\"Cell\">" + mentor['overalexperience'] + "</div>"))
+                                    )
+                                    .append(
+                                        $("<div class=\"Row\"></div>")
+                                            .append($("<div class=\"Cell LeftCell\">" + "Опыт в компании:" + "&nbsp;</div>"))
+                                            .append($("<div class=\"Cell\">" + mentor['currentcompanyexperience'] + "</div>"))
+                                    )
+                                    .append(
+                                        $("<div class=\"Row\"></div>")
+                                            .append($("<div class=\"Cell LeftCell\">" + "Программные языки:" + "&nbsp;</div>"))
+                                            .append($("<div class=\"Cell\">" + mentor['codinglanguages'] + "</div>"))
+                                    )
+                            )
+                    )
+            );
+
+            // ----------------------------------------
+
+            $("#Results").append(div);
+
+            mentorPageId++;
+        }
+
+        function toggleButton() {
+            var noChosen = true;
+
+            if (document.getElementsByClassName("Chosen").length > 0) {
+                noChosen = false;
+            }
+
+            if (noChosen) {
+                if (document.getElementById("ChosenButton") != null) {
+                    $("#ChosenButton").remove();
+                }
+            } else {
+                if (document.getElementById("ChosenButton") == null) {
+                    $("#Results").prepend(
+                        $("<button id=\"ChosenButton\">Выбрать этого ментора</button>")
+                            .click(function () {
+                                for (var i = 0; i < mentorPageId; i++) {
+                                    if ($("#" + i).hasClass("Chosen")) {
+                                        var chosenMentorId = i;
+                                    }
+                                }
+
+                                $.ajax({
+                                    url: '/MatchAndRank/Ajax/ChosenMentor/',
+                                    data: {
+                                        mentor: $("#" + chosenMentorId).attr("name")
+                                    },
+                                    dataType: 'json',
+                                    success: function (result) {
+                                        window.location.href = "/MatchAndRank/FindMentor";
+                                    }
+                                });
+                            })
+                    );
+                }
+            }
+        }
+
+        function addImages() {
+            $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+                {
+                    tags: "kitten",
+                    tagmode: "any",
+                    format: "json"
+                },
+                function (data) {
+                    for (var i = 0; i < mentorPageId; i++) {
+                        $("#Image" + i)
+                            .css("background-image", "url(\"" + data.items[i]['media']['m'] + "\")")
+                            .css("height", "200px")
+                            .css("width", "100px")
+                    }
+                });
+        }
     </script>
 {% endblock %}
 
@@ -63,11 +193,13 @@
 
         .dataBlock {
             border: 1px solid black;
-            width: 47%;
-            height: 200px;
-            margin: 1%;
-            display: inline-block;
+            width: 96%;
+            height: 10px;
+            margin: 10px;
+            display: inline-table;
             background-color: white;
+            padding: 1%;
+            align-self: center;
         }
 
         .Left {
@@ -79,7 +211,38 @@
         }
 
         .Chosen {
-            background-color: green;
+            background-color: #dcf0d8;
+        }
+
+        .Row {
+            display: table-row;
+        }
+
+        .Cell {
+            display: table-cell;
+            padding: 5px;
+        }
+
+        .LeftCell {
+            border-right: 1px solid black;
+            width: 20%;
+        }
+
+        .Table {
+            display: table;
+        }
+
+        .PercentageCell {
+            width: 15%;
+            vertical-align: middle;
+            text-align: center;
+            border-right: 1px solid black;
+            border-left: 1px solid black;
+        }
+
+        .Percentage {
+            font-size: 4vw;
+            text-align: center;
         }
     </style>
 {% endblock %}
@@ -87,9 +250,6 @@
 {% block header %}{% endblock %}
 
 {% block main %}
-    <button id="addMentor" style="height: 30px">Add Mentor</button>
-    <br>
-
     <div id="Results"></div>
 {% endblock %}
 

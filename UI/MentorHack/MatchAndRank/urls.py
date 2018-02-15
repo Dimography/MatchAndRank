@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^LogOut/$', views.logOut, name='logOut'),
 
     # For FindMentor AJAX-requests
-    url(r'^Ajax/GetUserData/$', views.ajax_GetUserData, name='ajax_GetUserData'),
+    # url(r'^Ajax/GetUserData/$', views.ajax_GetUserData, name='ajax_GetUserData'),
     url(r'^Ajax/FindMentor/$', views.ajax_FindMentor, name='ajax_FindMentor'),
-    url(r'^Ajax/FindMentee/$', views.ajax_FindMentee, name='ajax_FindMentee'),
+    url(r'^Ajax/ChosenMentor/$', views.ajax_ChooseMentor, name='ajax_ChooseMentor'),
 ]

@@ -1,10 +1,10 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import render
 
-from .db_api import db_api
-from . import match_func
+from MatchAndRank import interface
+
 
 # Main page
 def main(request):
@@ -32,42 +32,17 @@ def findMentee(request):
 
 
 def ajax_FindMentor(request):
-    db = db_api.database("state.db")
-    mentee_id = request.user.get_username()
-    mentee_data = db.get_user_by_id(mentee_id)
-    potential_mentors = db.get_by_value("state", "department", mentee_data["department"])
-    data = match_func.find_mentors(mentee_data, potential_mentors, 5)
-    print(data)
+    data = interface.get_mentors(request.user.get_username())
 
-    return JsonResponse({"123": 223})
+    if (data != False):
+        return JsonResponse(data)
+    else:
+        return JsonResponse({"ERROR, MENTOR ALREADY EXISTS": 1})
 
 
-def ajax_FindMentee(request):
-    id = request.user.get_username()
+def ajax_ChooseMentor(request):
+    if (request.GET['mentor']):
+        print("Mentor: ", request.GET['mentor'], "Mentee:", request.user.get_username())
+        # interface.choose_mentor(request.GET['mentor'], request.user.get_username)
 
-    data = {
-        'Mentee': [
-            123,
-            456,
-            789,
-        ]
-    }
-
-    return JsonResponse(data)
-
-
-# Sending data to web-page
-def ajax_GetUserData(request):
-    id = request.user.get_username()
-
-    data = {
-        'fields': {
-            'must': [
-                'name',
-                'id',
-                'position'
-            ],
-        }
-    }
-
-    return JsonResponse(data)
+    return JsonResponse({"Complete": True})
